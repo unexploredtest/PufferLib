@@ -52,6 +52,7 @@ class Speedhockey(pufferlib.PufferEnv):
                 self.rewards[i*num_agents:(i+1)*num_agents],
                 self.terminals[i*num_agents:(i+1)*num_agents],
                 self.truncations[i*num_agents:(i+1)*num_agents],
+                seed,
                 width=width, height=height, paddle_width=paddle_width, paddle_height=paddle_height,
                 ball_width=ball_width, ball_height=ball_height, paddle_speed=paddle_speed,
                 ball_initial_speed_x=ball_initial_speed_x, ball_initial_speed_y=ball_initial_speed_y,
