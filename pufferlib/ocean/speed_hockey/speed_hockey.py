@@ -29,7 +29,7 @@ class Speedhockey(pufferlib.PufferEnv):
         #         low=-1, high=1,  dtype=np.float32,
         #     )
         # else:
-        self.single_action_space = gymnasium.spaces.Discrete(6)
+        self.single_action_space = gymnasium.spaces.Discrete(7)
         num_agents = 2
         
         self.render_mode = render_mode

@@ -149,22 +149,67 @@ struct Delta {
     float dy;
 };
 
-bool check_collision_behind(SpeedHockey* env, int player_index) {
-    if((env->paddle_x_behind_offset <= env->ball_x && env->paddle_x_behind_offset >= env->ball_x + env->paddle_width) ||
-        (env->players[player_index].behind_paddle_y <= env->ball_y && env->players[player_index].behind_paddle_y >= env->ball_y + env->paddle_height)) {
+bool check_collision_behind(SpeedHockey* env, int player_index) {    
+    float start_x;
+    float end_x;
+    float start_y = env->players[player_index].behind_paddle_y;
+    float end_y = env->players[player_index].behind_paddle_y + env->paddle_height;
+    if(player_index == 0) {
+        start_x = env->paddle_x_behind_offset;
+        end_x = env->paddle_x_behind_offset + env->paddle_width;
+    } else {
+        start_x = env->width - env->paddle_x_behind_offset;
+        end_x = env->width - env->paddle_x_behind_offset + env->paddle_width;
+    }
+    float ball_start_x = env->ball_x;
+    float ball_end_x = env->ball_x + env->ball_width;
+    float ball_start_y = env->ball_y;
+    float ball_end_y = env->ball_y + env->ball_height;z
+
+    if(start_x <= ball_end_x && ball_start_x <= end_x &&
+        start_y <= ball_end_y && ball_start_y <= end_y) {
         return true;
     } else {
         return false;
     }
+
+    // if((env->paddle_x_behind_offset <= env->ball_x && env->paddle_x_behind_offset >= env->ball_x + env->paddle_width) ||
+    //     (env->players[player_index].behind_paddle_y <= env->ball_y && env->players[player_index].behind_paddle_y >= env->ball_y + env->paddle_height)) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 }
 
 bool check_collision_front(SpeedHockey* env, int player_index) {
-    if((env->paddle_x_front_offset <= env->ball_x && env->paddle_x_front_offset >= env->ball_x + env->paddle_width) ||
-        (env->players[player_index].front_paddle_y <= env->ball_y && env->players[player_index].front_paddle_y >= env->ball_y + env->paddle_height)) {
+    float start_x;
+    float end_x;
+    float start_y = env->players[player_index].front_paddle_y;
+    float end_y = env->players[player_index].front_paddle_y + env->paddle_height;
+    if(player_index == 0) {
+        start_x = env->paddle_x_front_offset;
+        end_x = env->paddle_x_front_offset + env->paddle_width;
+    } else {
+        start_x = env->width - env->paddle_x_front_offset;
+        end_x = env->width - env->paddle_x_front_offset + env->paddle_width;
+    }
+    float ball_start_x = env->ball_x;
+    float ball_end_x = env->ball_x + env->ball_width;
+    float ball_start_y = env->ball_y;
+    float ball_end_y = env->ball_y + env->ball_height;z
+
+    if(start_x <= ball_end_x && ball_start_x <= end_x &&
+        start_y <= ball_end_y && ball_start_y <= end_y) {
         return true;
     } else {
         return false;
     }
+    // if((env->paddle_x_front_offset <= env->ball_x && env->paddle_x_front_offset >= env->ball_x + env->paddle_width) ||
+    //     (env->players[player_index].front_paddle_y <= env->ball_y && env->players[player_index].front_paddle_y >= env->ball_y + env->paddle_height)) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 }
 
 // Delta get_collision_d_front(SpeedHockey* env, int player_index) {
@@ -505,7 +550,7 @@ void c_render(SpeedHockey* env) {
 
     // Draw right front paddle
     DrawRectangle(
-        client->width - env->paddle_x_front_offset - env->paddle_width,
+        client->width - env->paddle_x_front_offset,
         client->height - env->players[1].front_paddle_y - client->paddle_height,
         client->paddle_width,
         client->paddle_height,
