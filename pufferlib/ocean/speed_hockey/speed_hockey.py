@@ -22,7 +22,7 @@ class Speedhockey(pufferlib.PufferEnv):
             paddle_x_behind_offset=30, paddle_x_front_offset=100,
             frameskip=1, continuous=False, log_interval=128, buf=None, seed=0):
         self.single_observation_space = gymnasium.spaces.Box(
-            low=0, high=1, shape=(8,), dtype=np.float32,
+            low=0, high=1, shape=(10,), dtype=np.float32,
         )
         # if continuous:
         #     self.single_action_space = gymnasium.spaces.Box(
@@ -52,9 +52,13 @@ class Speedhockey(pufferlib.PufferEnv):
                 self.rewards[i*num_agents:(i+1)*num_agents],
                 self.terminals[i*num_agents:(i+1)*num_agents],
                 self.truncations[i*num_agents:(i+1)*num_agents],
-                seed, width=width, height=height,
-                num_agents=num_agents, num_factories=num_factories,
-                num_resources=num_resources)
+                width=width, height=height, paddle_width=paddle_width, paddle_height=paddle_height,
+                ball_width=ball_width, ball_height=ball_height, paddle_speed=paddle_speed,
+                ball_initial_speed_x=ball_initial_speed_x, ball_initial_speed_y=ball_initial_speed_y,
+                ball_speed_y_increment=ball_speed_y_increment, ball_max_speed_y=ball_max_speed_y,
+                max_score=max_score, goal_offset=goal_offset, paddle_y_offset=paddle_y_offset,
+                paddle_x_behind_offset=paddle_x_behind_offset, paddle_x_front_offset=paddle_x_front_offset,
+                frameskip=frameskip, continuous=continuous)
             c_envs.append(c_env)
 
         self.c_envs = binding.vectorize(*c_envs)
