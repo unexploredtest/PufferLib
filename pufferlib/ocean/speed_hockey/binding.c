@@ -19,7 +19,7 @@ static int my_init(Env* env, PyObject* args, PyObject* kwargs) {
     env->frameskip = unpack(kwargs, "frameskip");
     env->continuous = unpack(kwargs, "continuous");
     env->goal_offset = unpack(kwargs, "goal_offset");
-    env->goal_offset = unpack(kwargs, "goal_offset");
+    env->paddle_y_offset = unpack(kwargs, "paddle_y_offset");
     env->paddle_x_front_offset = unpack(kwargs, "paddle_x_front_offset");
     env->paddle_x_behind_offset = unpack(kwargs, "paddle_x_behind_offset");
     init(env);
