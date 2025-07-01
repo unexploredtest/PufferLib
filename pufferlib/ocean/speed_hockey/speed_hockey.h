@@ -164,7 +164,7 @@ bool check_collision_behind(SpeedHockey* env, int player_index) {
     float ball_start_x = env->ball_x;
     float ball_end_x = env->ball_x + env->ball_width;
     float ball_start_y = env->ball_y;
-    float ball_end_y = env->ball_y + env->ball_height;z
+    float ball_end_y = env->ball_y + env->ball_height;
 
     if(start_x <= ball_end_x && ball_start_x <= end_x &&
         start_y <= ball_end_y && ball_start_y <= end_y) {
@@ -196,7 +196,7 @@ bool check_collision_front(SpeedHockey* env, int player_index) {
     float ball_start_x = env->ball_x;
     float ball_end_x = env->ball_x + env->ball_width;
     float ball_start_y = env->ball_y;
-    float ball_end_y = env->ball_y + env->ball_height;z
+    float ball_end_y = env->ball_y + env->ball_height;
 
     if(start_x <= ball_end_x && ball_start_x <= end_x &&
         start_y <= ball_end_y && ball_start_y <= end_y) {
