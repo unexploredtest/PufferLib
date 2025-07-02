@@ -14,7 +14,7 @@ from pufferlib.ocean.speed_hockey import binding
 
 class Speedhockey(pufferlib.PufferEnv):
     def __init__(self, num_envs=1, num_agents=2, render_mode=None,
-            width=500, height=640, paddle_width=20, paddle_height=70,
+            width=700, height=350, paddle_width=20, paddle_height=70,
             ball_width=32, ball_height=32, paddle_speed=8,
             ball_initial_speed_x=10, ball_initial_speed_y=1,
             ball_speed_y_increment=3, ball_max_speed_y=13,
