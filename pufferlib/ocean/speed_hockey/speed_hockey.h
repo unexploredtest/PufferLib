@@ -626,6 +626,24 @@ void c_render(SpeedHockey* env) {
         client->paddle_right_color
     );
 
+    // Draw left goal
+    DrawRectangle(
+        0, // x
+        env->goal_offset, // y
+        10, // width
+        env->height - 2 * env->goal_offset, // height
+        WHITE
+    );
+
+    // Draw right goal
+    DrawRectangle(
+        env->width - 10, // x
+        env->goal_offset, // y
+        10, // width
+        env->height - 2 * env->goal_offset, // height
+        WHITE
+    );
+
     // Draw ball
     DrawTexturePro(
         client->ball,
