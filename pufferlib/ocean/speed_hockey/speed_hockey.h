@@ -323,6 +323,7 @@ void c_step(SpeedHockey* env) {
                 env->players[i].front_paddle_dir = 1;
             } else if (act == 6.0) { // down
                 env->players[i].front_paddle_dir = -1;
+            }
         }
 
         for (int j = 0; j < env->frameskip; j++) {
