@@ -580,7 +580,7 @@ void c_render(SpeedHockey* env) {
     // Draw right behind paddle
     DrawRectangle(
         client->width - env->paddle_x_behind_offset,
-        env->players[1].behind_paddle_yt,
+        env->players[1].behind_paddle_y,
         client->paddle_width,
         client->paddle_height,
         client->paddle_right_color
