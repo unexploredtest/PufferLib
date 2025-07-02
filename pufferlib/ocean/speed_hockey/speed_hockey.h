@@ -19,6 +19,8 @@ typedef struct SpeedHockey SpeedHockey;
 struct Player {
     float behind_paddle_y;
     float front_paddle_y;
+    float behind_paddle_x;
+    float front_paddle_x;
     float behind_paddle_dir;
     float front_paddle_dir;
 };
@@ -74,6 +76,11 @@ void init(SpeedHockey* env) {
     env->min_paddle_y = env->paddle_height / 2;
     env->max_paddle_y = env->height - env->paddle_height;
     
+    env->players[0].behind_paddle_x = env->paddle_x_behind_offset;
+    env->players[0].front_paddle_x = env->paddle_x_front_offset;
+    env->players[1].behind_paddle_x = env->width - env->paddle_x_behind_offset - env->paddle_width;
+    env->players[1].front_paddle_x = env->width - env->paddle_x_front_offset - env->paddle_width;
+
     for(int i = 0; i < PLAYER_COUNT; i++) {
         env->players[i].behind_paddle_dir = 0;
         env->players[i].front_paddle_dir = 0;
@@ -154,17 +161,17 @@ struct Delta {
 // }
 
 bool check_collision_behind(SpeedHockey* env, int player_index) {    
-    float start_x;
-    float end_x;
+    float start_x = env->players[player_index].behind_paddle_x;
+    float end_x = env->players[player_index].behind_paddle_x + env->paddle_width;
     float start_y = env->players[player_index].behind_paddle_y;
     float end_y = env->players[player_index].behind_paddle_y + env->paddle_height;
-    if(player_index == 0) {
-        start_x = env->paddle_x_behind_offset;
-        end_x = env->paddle_x_behind_offset + env->paddle_width;
-    } else {
-        start_x = env->width - env->paddle_x_behind_offset;
-        end_x = env->width - env->paddle_x_behind_offset + env->paddle_width;
-    }
+    // if(player_index == 0) {
+    //     start_x = env->paddle_x_behind_offset;
+    //     end_x = env->paddle_x_behind_offset + env->paddle_width;
+    // } else {
+    //     start_x = env->width - env->paddle_x_behind_offset;
+    //     end_x = env->width - env->paddle_x_behind_offset + env->paddle_width;
+    // }
     float ball_start_x = env->ball_x;
     float ball_end_x = env->ball_x + env->ball_width;
     float ball_start_y = env->ball_y;
@@ -592,7 +599,7 @@ void c_render(SpeedHockey* env) {
 
     // Draw left behind paddle
     DrawRectangle(
-        env->paddle_x_behind_offset,
+        env->players[0].behind_paddle_x,
         env->players[0].behind_paddle_y,
         client->paddle_width,
         client->paddle_height,
@@ -601,7 +608,7 @@ void c_render(SpeedHockey* env) {
 
     // Draw left front paddle
     DrawRectangle(
-        env->paddle_x_front_offset,
+        env->players[0].front_paddle_x,
         env->players[0].front_paddle_y,
         client->paddle_width,
         client->paddle_height,
@@ -610,7 +617,7 @@ void c_render(SpeedHockey* env) {
 
     // Draw right behind paddle
     DrawRectangle(
-        client->width - env->paddle_x_behind_offset,
+        env->players[1].behind_paddle_x,
         env->players[1].behind_paddle_y,
         client->paddle_width,
         client->paddle_height,
@@ -619,7 +626,7 @@ void c_render(SpeedHockey* env) {
 
     // Draw right front paddle
     DrawRectangle(
-        client->width - env->paddle_x_front_offset,
+        env->players[1].front_paddle_x,
         env->players[1].front_paddle_y,
         client->paddle_width,
         client->paddle_height,
