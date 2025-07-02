@@ -22,7 +22,7 @@ class Speedhockey(pufferlib.PufferEnv):
             paddle_x_behind_offset=30, paddle_x_front_offset=100,
             frameskip=1, continuous=False, log_interval=128, buf=None, seed=0):
         self.single_observation_space = gymnasium.spaces.Box(
-            low=0, high=1, shape=(10,), dtype=np.float32,
+            low=0, high=1, shape=(11,), dtype=np.float32,
         )
         # if continuous:
         #     self.single_action_space = gymnasium.spaces.Box(
