@@ -91,8 +91,29 @@ class Speedhockey(pufferlib.PufferEnv):
     def close(self):
         binding.vec_close(self.c_envs)
 
-if __name__ == '__main__':
-    test_performance(Speedhockey)
+if __name__ == "__main__":
+    env = Speedhockey()
+    env.reset()
+    tick = 0
+    timeout=30
+
+    tot_agents = env.num_agents
+    actions = np.random.randint(0,5,(1024,tot_agents))
+
+    import time 
+    start = time.time()
+    # while time.time() - start < timeout:
+    while tick < 500:
+        atns = actions[tick % 1024]
+        env.step(atns)
+        if -1 in env.rewards:
+            breakpoint()
+        # env.render()
+        tick += 1
+
+    print(f'SPS: {int(tot_agents * tick / (time.time() - start)):_}')
+
+    env.close()
 
 #from cy_pong import CyPong
 # class CythonSpeedhockey(pufferlib.PufferEnv):
