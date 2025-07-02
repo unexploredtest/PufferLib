@@ -308,21 +308,22 @@ void c_step(SpeedHockey* env) {
             env->players[i].behind_paddle_dir = env->actions[i*2];
             env->players[i].front_paddle_dir = env->actions[i*2 + 1];
         } else {
-            float act = env->actions[i];
-            if (act == 0.0) { // No change
-                continue;
-            } else if (act == 1.0) { // still
-                env->players[i].behind_paddle_dir = 0;
-            } else if (act == 2.0) { // up
-                env->players[i].behind_paddle_dir = 1;
-            } else if (act == 3.0) { // down
-                env->players[i].behind_paddle_dir = -1;
-            } else if (act == 4.0) { // still
-                env->players[i].front_paddle_dir = 0;
-            }  else if (act == 5.0) { // up
-                env->players[i].front_paddle_dir = 1;
-            } else if (act == 6.0) { // down
-                env->players[i].front_paddle_dir = -1;
+            float act_behind = env->actions[i*2];
+            float act_front = env->actions[i*2+1];
+            if (act_behind == 0.0) {
+                env->players[i].behind_paddle_dir = 0; // still
+            } else if (act == 1.0) {
+                env->players[i].behind_paddle_dir = 1; // up
+            } else if (act == 2.0) {
+                env->players[i].behind_paddle_dir = -1; // down
+            }
+
+            if (act_front == 0.0) {
+                env->players[i].front_paddle_dir = 0; // still
+            } else if (act == 1.0) {
+                env->players[i].front_paddle_dir = 1; // up
+            } else if (act == 2.0) {
+                env->players[i].front_paddle_dir = -1; // down
             }
         }
 
@@ -680,12 +681,12 @@ void c_render(SpeedHockey* env) {
     // Draw scores
     DrawText(
         TextFormat("%i", env->score_p1),
-        client->width / 2 + client->x_pad - 50 - MeasureText(TextFormat("%i", env->score_p1), 30) / 2,
+        client->width / 2 - 50 - MeasureText(TextFormat("%i", env->score_p1), 30) / 2,
         10, 30, (Color){0, 187, 187, 255}
     );
     DrawText(
         TextFormat("%i", env->score_p2),
-        client->width / 2 + client->x_pad + 50 - MeasureText(TextFormat("%i", env->score_p2), 30) / 2,
+        client->width / 2 + 50 - MeasureText(TextFormat("%i", env->score_p2), 30) / 2,
         10, 30, (Color){0, 187, 187, 255}
     );
 
