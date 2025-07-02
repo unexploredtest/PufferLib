@@ -149,6 +149,10 @@ struct Delta {
     float dy;
 };
 
+// struct CollisionResult {
+
+// }
+
 bool check_collision_behind(SpeedHockey* env, int player_index) {    
     float start_x;
     float end_x;
@@ -166,8 +170,42 @@ bool check_collision_behind(SpeedHockey* env, int player_index) {
     float ball_start_y = env->ball_y;
     float ball_end_y = env->ball_y + env->ball_height;
 
+    int player_mult = (player_index * 2) - 1;
+
     if(start_x <= ball_end_x && ball_start_x <= end_x &&
         start_y <= ball_end_y && ball_start_y <= end_y) {
+        float dx;
+        float new_x;
+        float dy;
+        float new_y;
+        if(env->ball_vx < 0) {
+            new_x = end_x;
+            dx = end_x - ball_start_x;
+        } else {
+            new_x = start_x - env->ball_width;
+            dx = ball_start_x - new_x;
+        }
+
+        if(env->ball_vy < 0) {
+            new_y = end_y;
+            dy = end_y - ball_start_y;
+        } else {
+            new_y = start_y - env->ball_width;
+            dy = ball_start_y - new_y;
+        }
+
+        if(dx < dy) {
+            env->ball_vx = -env->ball_vx;
+            env->ball_y = new_y;
+        } else if(dx > dy) {
+            env->ball_vy = -env->ball_vy;
+            env->ball_x = new_x;
+        } else {
+            env->ball_vx = -env->ball_vx;
+            env->ball_vy = -env->ball_vy;
+            env->ball_y = new_y;
+            env->ball_x = new_x;
+        }
         return true;
     } else {
         return false;
@@ -344,8 +382,8 @@ void c_step(SpeedHockey* env) {
 
     // Handle collisions with paddles
     if(check_collision_behind(env, player_index)) {
-        float dx = env->ball_x - env->paddle_x_behind_offset;
-        float dy = env->ball_y - env->players[player_index].behind_paddle_y;
+        // float dx = env->ball_x - env->paddle_x_behind_offset;
+        // float dy = env->ball_y - env->players[player_index].behind_paddle_y;
 
         if(dx < dy) {
             env->ball_vx = -env->ball_vx;
