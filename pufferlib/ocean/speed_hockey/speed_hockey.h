@@ -196,15 +196,15 @@ bool check_collision_behind(SpeedHockey* env, int player_index) {
 
         if(dx < dy) {
             env->ball_vx = -env->ball_vx;
-            env->ball_y = new_y;
+            // env->ball_y = new_y;
         } else if(dx > dy) {
             env->ball_vy = -env->ball_vy;
-            env->ball_x = new_x;
+            // env->ball_x = new_x;
         } else {
             env->ball_vx = -env->ball_vx;
             env->ball_vy = -env->ball_vy;
-            env->ball_y = new_y;
-            env->ball_x = new_x;
+            // env->ball_y = new_y;
+            // env->ball_x = new_x;
         }
         return true;
     } else {
@@ -260,15 +260,15 @@ bool check_collision_front(SpeedHockey* env, int player_index) {
 
         if(dx < dy) {
             env->ball_vx = -env->ball_vx;
-            env->ball_y = new_y;
+            // env->ball_y = new_y;
         } else if(dx > dy) {
             env->ball_vy = -env->ball_vy;
-            env->ball_x = new_x;
+            // env->ball_x = new_x;
         } else {
             env->ball_vx = -env->ball_vx;
             env->ball_vy = -env->ball_vy;
-            env->ball_y = new_y;
-            env->ball_x = new_x;
+            // env->ball_y = new_y;
+            // env->ball_x = new_x;
         }
         return true;
     } else {
