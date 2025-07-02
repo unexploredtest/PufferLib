@@ -603,8 +603,8 @@ void c_render(SpeedHockey* env) {
             0, 128, 128,
         },
         (Rectangle){
-            client->x_pad + env->ball_x,
-            client->height - env->ball_y - client->ball_height,
+            env->ball_x,
+            env->ball_y ,
             client->ball_width,
             client->ball_height
         },
