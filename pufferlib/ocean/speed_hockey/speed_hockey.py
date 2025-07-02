@@ -20,16 +20,16 @@ class Speedhockey(pufferlib.PufferEnv):
             ball_speed_y_increment=3, ball_max_speed_y=13,
             max_score=21, goal_offset=30, paddle_y_offset=20,
             paddle_x_behind_offset=30, paddle_x_front_offset=100,
-            frameskip=1, continuous=False, log_interval=128, buf=None, seed=0):
+            frameskip=1, continuous=True, log_interval=128, buf=None, seed=0):
         self.single_observation_space = gymnasium.spaces.Box(
             low=0, high=1, shape=(11,), dtype=np.float32,
         )
-        # if continuous:
-        #     self.single_action_space = gymnasium.spaces.Box(
-        #         low=-1, high=1,  dtype=np.float32,
-        #     )
-        # else:
-        self.single_action_space = gymnasium.spaces.Discrete(7)
+        if continuous:
+            self.single_action_space = gymnasium.spaces.Box(
+                low=-1, high=1, shape=(2,), dtype=np.float32,
+            )
+        else:
+            self.single_action_space = gymnasium.spaces.Discrete(7)
         num_agents = 2
         
         self.render_mode = render_mode
