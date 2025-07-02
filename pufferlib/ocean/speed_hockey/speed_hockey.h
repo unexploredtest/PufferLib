@@ -298,7 +298,7 @@ void c_step(SpeedHockey* env) {
         env->terminals[i] = 0;
         // move ego paddle
         float act = env->actions[i];
-        
+
         if (act == 0.0) { // No change
             continue;
         } else if (act == 1.0) { // still
@@ -315,7 +315,7 @@ void c_step(SpeedHockey* env) {
             env->players[i].front_paddle_dir = -1;
         }
 
-        for (int i = 0; i < env->frameskip; i++) {
+        for (int j = 0; j < env->frameskip; j++) {
         // env->paddle_p1_y_b += env->paddle_speed * env->paddle_p1_d_b;
         // env->paddle_p1_y_f += env->paddle_speed * env->paddle_p1_d_f;
         // env->paddle_p2_y_b += env->paddle_speed * env->paddle_p2_d_b;
