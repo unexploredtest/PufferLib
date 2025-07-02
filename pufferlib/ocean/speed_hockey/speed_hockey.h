@@ -380,7 +380,8 @@ void c_step(SpeedHockey* env) {
         //     }
         } else {
             env->score_p1 += 1;
-            env->rewards[0] = 1;
+            env->rewards[0] = -1;
+            env->rewards[1] = 1;
             if (env->score_p1 == env->max_score) {
                 env->terminals[0] = 1;
                 env->terminals[1] = 1;
@@ -399,7 +400,8 @@ void c_step(SpeedHockey* env) {
            env->ball_vx = -env->ball_vx;
         } else {
             env->score_p2 += 1;
-            env->rewards[1] = 1;
+            env->rewards[0] = 1;
+            env->rewards[1] = -1;
             if (env->score_p2 == env->max_score) {
                 env->terminals[0] = 1;
                 env->terminals[1] = 1;
