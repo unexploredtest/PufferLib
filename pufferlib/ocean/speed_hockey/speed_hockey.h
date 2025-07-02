@@ -422,31 +422,31 @@ void c_step(SpeedHockey* env) {
     }
 
     // Handle collisions with paddles
-    if(check_collision_behind(env, player_index)) {
-        // // float dx = env->ball_x - env->paddle_x_behind_offset;
-        // // float dy = env->ball_y - env->players[player_index].behind_paddle_y;
+    // if(check_collision_behind(env, player_index)) {
+    //     // // float dx = env->ball_x - env->paddle_x_behind_offset;
+    //     // // float dy = env->ball_y - env->players[player_index].behind_paddle_y;
 
-        // if(dx < dy) {
-        //     env->ball_vx = -env->ball_vx;
-        // } else if(dx > dy) {
-        //     env->ball_vy = -env->ball_vy;
-        // } else {
-        //     env->ball_vx = -env->ball_vx;
-        //     env->ball_vy = -env->ball_vy;
-        // }
-    } else if(check_collision_front(env, player_index)) {
-        // float dx = env->ball_x - env->paddle_x_front_offset;
-        // float dy = env->ball_y - env->players[player_index].front_paddle_y;
+    //     // if(dx < dy) {
+    //     //     env->ball_vx = -env->ball_vx;
+    //     // } else if(dx > dy) {
+    //     //     env->ball_vy = -env->ball_vy;
+    //     // } else {
+    //     //     env->ball_vx = -env->ball_vx;
+    //     //     env->ball_vy = -env->ball_vy;
+    //     // }
+    // } else if(check_collision_front(env, player_index)) {
+    //     // float dx = env->ball_x - env->paddle_x_front_offset;
+    //     // float dy = env->ball_y - env->players[player_index].front_paddle_y;
 
-        // if(dx < dy) {
-        //     env->ball_vx = -env->ball_vx;
-        // } else if(dx > dy) {
-        //     env->ball_vy = -env->ball_vy;
-        // } else {
-        //     env->ball_vx = -env->ball_vx;
-        //     env->ball_vy = -env->ball_vy;
-        // }
-    }
+    //     // if(dx < dy) {
+    //     //     env->ball_vx = -env->ball_vx;
+    //     // } else if(dx > dy) {
+    //     //     env->ball_vy = -env->ball_vy;
+    //     // } else {
+    //     //     env->ball_vx = -env->ball_vx;
+    //     //     env->ball_vy = -env->ball_vy;
+    //     // }
+    // }
 
     // clip ball
     env->ball_x = fminf(fmaxf(env->ball_x, 0), env->width - env->ball_width);
