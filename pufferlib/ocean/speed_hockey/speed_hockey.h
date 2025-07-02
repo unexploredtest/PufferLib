@@ -238,6 +238,38 @@ bool check_collision_front(SpeedHockey* env, int player_index) {
 
     if(start_x <= ball_end_x && ball_start_x <= end_x &&
         start_y <= ball_end_y && ball_start_y <= end_y) {
+        float dx;
+        float new_x;
+        float dy;
+        float new_y;
+        if(env->ball_vx < 0) {
+            new_x = end_x;
+            dx = end_x - ball_start_x;
+        } else {
+            new_x = start_x - env->ball_width;
+            dx = ball_start_x - new_x;
+        }
+
+        if(env->ball_vy < 0) {
+            new_y = end_y;
+            dy = end_y - ball_start_y;
+        } else {
+            new_y = start_y - env->ball_width;
+            dy = ball_start_y - new_y;
+        }
+
+        if(dx < dy) {
+            env->ball_vx = -env->ball_vx;
+            env->ball_y = new_y;
+        } else if(dx > dy) {
+            env->ball_vy = -env->ball_vy;
+            env->ball_x = new_x;
+        } else {
+            env->ball_vx = -env->ball_vx;
+            env->ball_vy = -env->ball_vy;
+            env->ball_y = new_y;
+            env->ball_x = new_x;
+        }
         return true;
     } else {
         return false;
