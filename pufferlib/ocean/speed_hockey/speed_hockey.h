@@ -129,7 +129,7 @@ void reset_round(SpeedHockey* env) {
         env->players[i].front_paddle_y = env->height / 2 - env->paddle_height / 2;
     }
 
-    env->ball_x = env->width / 5;
+    env->ball_x = env->width / 2 - env->ball_width / 2;;
     env->ball_y = env->height / 2 - env->ball_height / 2;
     env->ball_vx = env->ball_initial_speed_x;
     env->ball_vy = env->ball_initial_speed_y;
