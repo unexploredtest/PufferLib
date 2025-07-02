@@ -312,17 +312,17 @@ void c_step(SpeedHockey* env) {
             float act_front = env->actions[i*2+1];
             if (act_behind == 0.0) {
                 env->players[i].behind_paddle_dir = 0; // still
-            } else if (act == 1.0) {
+            } else if (act_behind == 1.0) {
                 env->players[i].behind_paddle_dir = 1; // up
-            } else if (act == 2.0) {
+            } else if (act_behind == 2.0) {
                 env->players[i].behind_paddle_dir = -1; // down
             }
 
             if (act_front == 0.0) {
                 env->players[i].front_paddle_dir = 0; // still
-            } else if (act == 1.0) {
+            } else if (act_front == 1.0) {
                 env->players[i].front_paddle_dir = 1; // up
-            } else if (act == 2.0) {
+            } else if (act_front == 2.0) {
                 env->players[i].front_paddle_dir = -1; // down
             }
         }
