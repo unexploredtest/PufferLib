@@ -139,8 +139,8 @@ void reset_round(SpeedHockey* env) {
 
     env->ball_x = env->width / 2 - env->ball_width / 2;;
     env->ball_y = env->height / 2 - env->ball_height / 2;
-    env->ball_vx = env->ball_initial_speed_x;
-    env->ball_vy = env->ball_initial_speed_y;
+    env->ball_vx = (2*(rand() % 2) - 1) * env->ball_initial_speed_x;
+    env->ball_vy = (2*(rand() % 2) - 1) * env->ball_initial_speed_y;
     env->tick = 0;
     env->n_bounces = 0;
 }
