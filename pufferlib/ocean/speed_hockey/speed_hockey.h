@@ -562,7 +562,7 @@ void c_render(SpeedHockey* env) {
     // Draw left behind paddle
     DrawRectangle(
         env->paddle_x_behind_offset,
-        client->height - env->players[0].behind_paddle_y - client->paddle_height,
+        env->players[0].behind_paddle_y,
         client->paddle_width,
         client->paddle_height,
         client->paddle_left_color
@@ -571,7 +571,7 @@ void c_render(SpeedHockey* env) {
     // Draw left front paddle
     DrawRectangle(
         env->paddle_x_front_offset,
-        client->height - env->players[0].front_paddle_y - client->paddle_height,
+        env->players[0].front_paddle_y,
         client->paddle_width,
         client->paddle_height,
         client->paddle_left_color
@@ -580,7 +580,7 @@ void c_render(SpeedHockey* env) {
     // Draw right behind paddle
     DrawRectangle(
         client->width - env->paddle_x_behind_offset,
-        client->height - env->players[1].behind_paddle_y - client->paddle_height,
+        env->players[1].behind_paddle_yt,
         client->paddle_width,
         client->paddle_height,
         client->paddle_right_color
@@ -589,7 +589,7 @@ void c_render(SpeedHockey* env) {
     // Draw right front paddle
     DrawRectangle(
         client->width - env->paddle_x_front_offset,
-        client->height - env->players[1].front_paddle_y - client->paddle_height,
+        env->players[1].front_paddle_y,
         client->paddle_width,
         client->paddle_height,
         client->paddle_right_color
