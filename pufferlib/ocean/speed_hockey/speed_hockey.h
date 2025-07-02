@@ -451,7 +451,7 @@ Client* make_client(SpeedHockey* env) {
     client->paddle_right_color = (Color){0, 255, 255, 255};
     client->ball_color = (Color){255, 255, 255, 255};
 
-    InitWindow(env->width + 2*client->x_pad, env->height, "PufferLib Speed Hockey");
+    InitWindow(env->width, env->height, "PufferLib Speed Hockey");
     SetTargetFPS(60 / env->frameskip);
 
     client->ball = LoadTexture("resources/shared/puffers_128.png");
