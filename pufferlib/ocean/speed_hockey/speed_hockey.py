@@ -22,7 +22,7 @@ class Speedhockey(pufferlib.PufferEnv):
             paddle_x_behind_offset=75, paddle_x_front_offset=180,
             frameskip=1, continuous=True, log_interval=128, buf=None, seed=0):
         self.single_observation_space = gymnasium.spaces.Box(
-            low=0, high=1, shape=(6,), dtype=np.float32,
+            low=0, high=1, shape=(8,), dtype=np.float32,
         )
         if continuous:
             self.single_action_space = gymnasium.spaces.Box(
@@ -70,10 +70,7 @@ class Speedhockey(pufferlib.PufferEnv):
         return self.observations, []
 
     def step(self, actions):
-        if  self.continuous:
-            self.actions[:] = np.clip(actions.flatten(), -1.0, 1.0)
-        else: 
-            self.actions[:] = actions
+        self.actions[:] = actions
  
         self.tick += 1
         binding.vec_step(self.c_envs)
