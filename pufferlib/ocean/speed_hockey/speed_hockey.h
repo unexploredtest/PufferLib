@@ -89,7 +89,7 @@ void init(SpeedHockey* env) {
 
 void allocate(SpeedHockey* env) {
     init(env);
-    env->observations = (float*)calloc(8*PLAYER_COUNT, sizeof(float));
+    env->observations = (float*)calloc(9*PLAYER_COUNT, sizeof(float));
     env->actions = (float*)calloc(7*PLAYER_COUNT, sizeof(float));
     env->rewards = (float*)calloc(PLAYER_COUNT, sizeof(float));
     env->terminals = (unsigned char*)calloc(PLAYER_COUNT, sizeof(unsigned char));
@@ -117,6 +117,7 @@ void add_log(SpeedHockey* env) {
 void compute_observations(SpeedHockey* env) {
     int obs_index = 0;
     for(int i = 0; i < PLAYER_COUNT; i++) {
+        env->observations[obs_index++] = i;
         env->observations[obs_index++] = (env->players[i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
         env->observations[obs_index++] = (env->players[i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
         env->observations[obs_index++] = (env->players[1-i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
