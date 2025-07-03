@@ -89,7 +89,7 @@ void init(SpeedHockey* env) {
 
 void allocate(SpeedHockey* env) {
     init(env);
-    env->observations = (float*)calloc(11*PLAYER_COUNT, sizeof(float));
+    env->observations = (float*)calloc(6*PLAYER_COUNT, sizeof(float));
     env->actions = (float*)calloc(7*PLAYER_COUNT, sizeof(float));
     env->rewards = (float*)calloc(PLAYER_COUNT, sizeof(float));
     env->terminals = (unsigned char*)calloc(PLAYER_COUNT, sizeof(unsigned char));
@@ -117,17 +117,16 @@ void add_log(SpeedHockey* env) {
 void compute_observations(SpeedHockey* env) {
     int obs_index = 0;
     for(int i = 0; i < PLAYER_COUNT; i++) {
-        env->observations[obs_index++] = i;
-        env->observations[obs_index++] = (env->players[0].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = (env->players[0].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = (env->players[1].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = (env->players[1].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+        env->observations[obs_index++] = (env->players[i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+        env->observations[obs_index++] = (env->players[i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+        env->observations[obs_index++] = (env->players[1-i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+        env->observations[obs_index++] = (env->players[1-i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
         env->observations[obs_index++] = env->ball_x / env->width;
         env->observations[obs_index++] = env->ball_y / env->height;
-        env->observations[obs_index++] = (env->ball_vx + env->ball_initial_speed_x) / (2 * env->ball_initial_speed_x);
-        env->observations[obs_index++] = (env->ball_vy + env->ball_max_speed_y) / (2 * env->ball_max_speed_y);
-        env->observations[obs_index++] = env->score_p1 / env->max_score;
-        env->observations[obs_index++] = env->score_p2 / env->max_score;
+        // env->observations[obs_index++] = (env->ball_vx + env->ball_initial_speed_x) / (2 * env->ball_initial_speed_x);
+        // env->observations[obs_index++] = (env->ball_vy + env->ball_max_speed_y) / (2 * env->ball_max_speed_y);
+        // env->observations[obs_index++] = env->score_p1 / env->max_score;
+        // env->observations[obs_index++] = env->score_p2 / env->max_score;
     }
 }
 
@@ -386,16 +385,20 @@ void c_step(SpeedHockey* env) {
             env->score_p2 += 1;
             env->rewards[0] = -1;
             env->rewards[1] = 1;
-            if (env->score_p2 == env->max_score) {
-                env->terminals[0] = 1;
-                env->terminals[1] = 1;
-                add_log(env);
-                c_reset(env);
-                return;
-            } else {
-                reset_round(env);
-                return;
-            }
+            env->terminals[0] = 1;
+            env->terminals[1] = 1;
+            add_log(env);
+            c_reset(env);
+            // if (env->score_p2 == env->max_score) {
+            //     env->terminals[0] = 1;
+            //     env->terminals[1] = 1;
+            //     add_log(env);
+            //     c_reset(env);
+            //     return;
+            // } else {
+            //     reset_round(env);
+            //     return;
+            // }
         }
     }
 
@@ -406,16 +409,21 @@ void c_step(SpeedHockey* env) {
             env->score_p1 += 1;
             env->rewards[0] = 1;
             env->rewards[1] = -1;
-            if (env->score_p1 == env->max_score) {
-                env->terminals[0] = 1;
-                env->terminals[1] = 1;
-                add_log(env);
-                c_reset(env);
-                return;
-            } else {
-                reset_round(env);
-                return;
-            }
+            env->terminals[0] = 1;
+            env->terminals[1] = 1;
+            add_log(env);
+            c_reset(env);
+            // if (env->score_p1 == env->max_score) {
+            //     env->terminals[0] = 1;
+            //     env->terminals[1] = 1;
+            //     add_log(env);
+            //     c_reset(env);
+            //     return;
+            // } else {
+            //     reset_round(env);
+            //     return;
+            // }
+
         }
     }
 
