@@ -89,7 +89,7 @@ void init(SpeedHockey* env) {
 
 void allocate(SpeedHockey* env) {
     init(env);
-    env->observations = (float*)calloc(9*PLAYER_COUNT, sizeof(float));
+    env->observations = (float*)calloc(8*PLAYER_COUNT, sizeof(float));
     env->actions = (float*)calloc(7*PLAYER_COUNT, sizeof(float));
     env->rewards = (float*)calloc(PLAYER_COUNT, sizeof(float));
     env->terminals = (unsigned char*)calloc(PLAYER_COUNT, sizeof(unsigned char));
@@ -117,15 +117,26 @@ void add_log(SpeedHockey* env) {
 void compute_observations(SpeedHockey* env) {
     int obs_index = 0;
     for(int i = 0; i < PLAYER_COUNT; i++) {
-        env->observations[obs_index++] = i;
-        env->observations[obs_index++] = (env->players[i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = (env->players[i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = (env->players[1-i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = (env->players[1-i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
-        env->observations[obs_index++] = env->ball_x / env->width;
-        env->observations[obs_index++] = env->ball_y / env->height;
-        env->observations[obs_index++] = (env->ball_vx + env->ball_initial_speed_x) / (2 * env->ball_initial_speed_x);
-        env->observations[obs_index++] = (env->ball_vy + env->ball_max_speed_y) / (2 * env->ball_max_speed_y);
+        // env->observations[obs_index++] = i;
+        if(i == 0) {
+            env->observations[obs_index++] = (env->players[i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = (env->players[i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = (env->players[1-i].behind_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = (env->players[1-i].front_paddle_y - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = env->ball_x / env->width;
+            env->observations[obs_index++] = env->ball_y / env->height;
+            env->observations[obs_index++] = (env->ball_vx + env->ball_initial_speed_x) / (2 * env->ball_initial_speed_x);
+            env->observations[obs_index++] = (env->ball_vy + env->ball_max_speed_y) / (2 * env->ball_max_speed_y);
+        } else {
+            env->observations[obs_index++] = ((env->height - env->players[i].behind_paddle_y)- env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = ((env->height - env->players[i].front_paddle_y) - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = ((env->height - env->players[1-i].behind_paddle_y) - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = ((env->height - env->players[1-i].front_paddle_y) - env->min_paddle_y) / (env->max_paddle_y - env->min_paddle_y);
+            env->observations[obs_index++] = (env->width - env->ball_x) / env->width;
+            env->observations[obs_index++] = (env->height - env->ball_y) / env->height;
+            env->observations[obs_index++] = (-env->ball_vx + env->ball_initial_speed_x) / (2 * env->ball_initial_speed_x);
+            env->observations[obs_index++] = (-env->ball_vy + env->ball_max_speed_y) / (2 * env->ball_max_speed_y);
+        }
         // env->observations[obs_index++] = env->score_p1 / env->max_score;
         // env->observations[obs_index++] = env->score_p2 / env->max_score;
     }
