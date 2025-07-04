@@ -10,7 +10,6 @@ import sys
 import glob
 import ast
 import time
-import copy
 import random
 import shutil
 import argparse
@@ -137,7 +136,6 @@ class PuffeRL:
         self.policy = policy
         if config['compile']:
             self.policy = torch.compile(policy, mode=config['compile_mode'], fullgraph=config['compile_fullgraph'])
-        self.old_policy = copy.deepcopy(self.policy).eval()
 
         # Optimizer
         if config['optimizer'] == 'adam':
@@ -252,7 +250,7 @@ class PuffeRL:
                     state['lstm_h'] = self.lstm_h[env_id.start]
                     state['lstm_c'] = self.lstm_c[env_id.start]
 
-                logits, value = self.old_policy.forward_eval(o_device, state)
+                logits, value = self.policy.forward_eval(o_device, state)
                 action, logprob, _ = pufferlib.pytorch.sample_logits(logits)
                 r = torch.clamp(r, -1, 1)
 
@@ -308,7 +306,6 @@ class PuffeRL:
         self.ep_indices = torch.arange(self.total_agents, device=device, dtype=torch.int32)
         self.ep_lengths.zero_()
         profile.end()
-        self.old_policy.load_state_dict(self.policy.state_dict())
         return self.stats
 
     @record
