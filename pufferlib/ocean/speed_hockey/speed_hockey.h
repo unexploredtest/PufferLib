@@ -315,10 +315,10 @@ void c_step(SpeedHockey* env) {
         env->tick += 1;
         env->rewards[i] = 0;
         env->terminals[i] = 0;
-        int action_mult = 1;
-        if(i == 1){
-            action_mult = -1;
-        }
+        // int action_mult = 1;
+        // if(i == 1){
+        //     action_mult = -1;
+        // }
         if(env->continuous) {
             env->players[i].behind_paddle_dir = env->actions[i*2];
             env->players[i].front_paddle_dir = env->actions[i*2 + 1];
@@ -342,8 +342,8 @@ void c_step(SpeedHockey* env) {
             }
         }
 
-        env->players[i].behind_paddle_dir *= action_mult;
-        env->players[i].front_paddle_dir *= action_mult;
+        // env->players[i].behind_paddle_dir *= action_mult;
+        // env->players[i].front_paddle_dir *= action_mult;
 
         for (int j = 0; j < env->frameskip; j++) {
         // env->paddle_p1_y_b += env->paddle_speed * env->paddle_p1_d_b;
