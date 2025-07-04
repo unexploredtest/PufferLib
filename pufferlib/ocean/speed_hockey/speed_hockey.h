@@ -323,6 +323,8 @@ void c_step(SpeedHockey* env) {
             env->players[i].behind_paddle_dir = env->actions[i*2];
             env->players[i].front_paddle_dir = env->actions[i*2 + 1];
         } else {
+            float act_behind = env->actions[i*2];
+            float act_front = env->actions[i*2+1];
             if (act_behind == 0.0) {
                 env->players[i].behind_paddle_dir = 0; // still
             } else if (act_behind == 1.0) {
